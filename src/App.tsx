@@ -5,18 +5,58 @@ import { Container } from "./components/Container";
 import { Logo } from "./components/Logo";
 import { Menu } from "./components/Menu";
 import { CountDown } from "./components/CountDown";
+import { DefaltInput } from "./components/DefaultInput";
+import { Cycles } from "./components/Cycles";
+import { DefaltButton } from "./components/DefaultButton";
+import { PlayCircleIcon } from "lucide-react";
+import { Footer } from "./components/Footer";
+import { useState } from "react";
 
 function App() {
+  const [ number, setNumber ] = useState(0)
+
+  function handleClick() {
+    setNumber(number + 1)
+  }
+
   return (
     <>
+      <button onClick={handleClick}>Aumentar</button>
       <Container>
-        <Logo/>
+        <Logo />
       </Container>
       <Container>
-        <Menu/>
+        <Menu />
       </Container>
       <Container>
-        <CountDown/>
+        <CountDown />
+      </Container>
+      <Container>
+        <form className="form" action="">
+          <div className="formRow">
+            <DefaltInput
+              type="text"
+              id="input"
+              labelText={number.toString()}
+              placeholder="Digite algo"
+            ></DefaltInput>
+          </div>
+
+          <div className="formRow">
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+
+          <div className="formRow">
+            <Cycles />
+          </div>
+
+          <div className="formRow">
+            <DefaltButton icon={<PlayCircleIcon />} color="green" />
+          </div>
+        </form>
+      </Container>
+      <Container>
+        <Footer />
       </Container>
     </>
   );
