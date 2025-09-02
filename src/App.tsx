@@ -1,65 +1,27 @@
 import "./styles/theme.css";
 import "./styles/global.css";
 
-import { Container } from "./components/Container";
-import { Logo } from "./components/Logo";
-import { Menu } from "./components/Menu";
-import { CountDown } from "./components/CountDown";
-import { DefaltInput } from "./components/DefaultInput";
-import { Cycles } from "./components/Cycles";
-import { DefaltButton } from "./components/DefaultButton";
-import { PlayCircleIcon } from "lucide-react";
-import { Footer } from "./components/Footer";
+import { Home } from "./Pages/Home";
+import type { TaskStateModel } from "./models/TaskStateModel";
 import { useState } from "react";
 
+const initialState: TaskStateModel = {
+  tasks: [],
+  secondsRemaining: 0,
+  formattedSecondsRemaining: "00:00",
+  activeTask: null,
+  currentCycle: 0,
+  config: {
+    workTime: 25,
+    shortBreakTime: 5,
+    longBreakTime: 15,
+  },
+};
+
 function App() {
-  const [ number, setNumber ] = useState(0)
+  const [state, setState] = useState(initialState);
 
-  function handleClick() {
-    setNumber(number + 1)
-  }
-
-  return (
-    <>
-      <button onClick={handleClick}>Aumentar</button>
-      <Container>
-        <Logo />
-      </Container>
-      <Container>
-        <Menu />
-      </Container>
-      <Container>
-        <CountDown />
-      </Container>
-      <Container>
-        <form className="form" action="">
-          <div className="formRow">
-            <DefaltInput
-              type="text"
-              id="input"
-              labelText={number.toString()}
-              placeholder="Digite algo"
-            ></DefaltInput>
-          </div>
-
-          <div className="formRow">
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-
-          <div className="formRow">
-            <Cycles />
-          </div>
-
-          <div className="formRow">
-            <DefaltButton icon={<PlayCircleIcon />} color="green" />
-          </div>
-        </form>
-      </Container>
-      <Container>
-        <Footer />
-      </Container>
-    </>
-  );
+  return <Home state={state} setState={setState} />;
 }
 
 export default App;

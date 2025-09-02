@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import { MoonIcon, SunIcon } from "lucide-react";
 
 type Icons = {
   children: React.ReactNode;
@@ -10,18 +11,25 @@ type Icons = {
 type AvailabelThemes = "dark" | "light";
 
 export function PageButton({ isTheme, ariaLabe, children }: Icons) {
-  const [theme, setTheme] = useState<AvailabelThemes>("dark");
+  const [theme, setTheme] = useState<AvailabelThemes>(() => {
+    const storageTheme = localStorage.getItem("theme") as AvailabelThemes || "dark";
+    return storageTheme;
+  });
+
+  const nextThemeIcon = {
+    dark: <SunIcon/>,
+    light: <MoonIcon/>
+  }
 
   function mudarThema(ev: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     ev.preventDefault();
     setTheme(theme === "dark" ? "light" : "dark");
-    console.log("Tema atual:", theme);
-
   }
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme)
-  }, [theme])
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
     <a
@@ -30,7 +38,7 @@ export function PageButton({ isTheme, ariaLabe, children }: Icons) {
       aria-label={ariaLabe}
       onClick={isTheme ? mudarThema : undefined}
     >
-      {children}
+      { isTheme ? nextThemeIcon[theme] : children }
     </a>
   );
 }
