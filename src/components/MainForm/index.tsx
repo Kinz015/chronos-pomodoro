@@ -3,8 +3,11 @@ import { Cycles } from "../Cycles";
 import { DefaltButton } from "../DefaultButton";
 import { DefaltInput } from "../DefaultInput";
 import styles from "./styles.module.css";
+import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
+
 
 export function MainForm() {
+
   return (
     <form className={styles.form} action="">
       <div className={styles.formRow}>
