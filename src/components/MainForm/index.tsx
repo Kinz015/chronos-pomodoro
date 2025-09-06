@@ -1,4 +1,4 @@
-import { PlayCircleIcon } from "lucide-react";
+import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { Cycles } from "../Cycles";
 import { DefaltButton } from "../DefaultButton";
 import { DefaltInput } from "../DefaultInput";
@@ -16,7 +16,7 @@ export function MainForm() {
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle);
-  const nextCycleType = getNextCycleType(nextCycle)
+  const nextCycleType = getNextCycleType(nextCycle);
 
   function handleCreateNewTask(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
@@ -55,33 +55,72 @@ export function MainForm() {
     });
   }
 
- const frase = "Próximo intervalo é de 25min" 
+  function handleInterruptTask() {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: "00:00",
+        tasks: prevState.tasks.map((task) => {
+          if (prevState.activeTask && prevState.activeTask.id === task.id) {
+            return { ...task, interruptDate: Date.now() };
+          }
+          return task;
+        }),
+      };
+    });
+  }
 
- if ( frase )
+  const frase = "Próximo intervalo é de 25min";
 
-  return (
-    <form onSubmit={handleCreateNewTask} className={styles.form} action="">
-      <div className={styles.formRow}>
-        <DefaltInput
-          type="text"
-          id="input"
-          labelText={"task"}
-          placeholder="Digite algo"
-          ref={taskNameInput}
-        ></DefaltInput>
-      </div>
+  if (frase)
+    return (
+      <form onSubmit={handleCreateNewTask} className={styles.form} action="">
+        <div className={styles.formRow}>
+          <DefaltInput
+            type="text"
+            id="input"
+            labelText={"task"}
+            placeholder="Digite algo"
+            ref={taskNameInput}
+            disabled={!!state.activeTask}
+          ></DefaltInput>
+        </div>
 
-      <div className="formRow">
-        <p>{frase}</p>
-      </div>
+        <div className="formRow">
+          <p>{frase}</p>
+        </div>
 
-      <div className="formRow">
-        <Cycles />
-      </div>
+        {state.currentCycle > 0 && (
+          <div className="formRow">
+            <Cycles />
+          </div>
+        )}
 
-      <div className="formRow">
-        <DefaltButton icon={<PlayCircleIcon />} color="green" />
-      </div>
-    </form>
-  );
+        <div className="formRow">
+          {!state.activeTask && (
+            <DefaltButton
+              aria-label="Iniciar nova tarefa"
+              title="Iniciar nova tarefa"
+              type="submit"
+              icon={<PlayCircleIcon />}
+              color="green"
+              key="botao_submit"
+            />
+          )}
+          {!!state.activeTask && (
+            <DefaltButton
+              aria-label="Iniciar nova tarefa"
+              title="Iniciar nova tarefa"
+              type="button"
+              icon={<StopCircleIcon />}
+              color="red"
+              onClick={handleInterruptTask}
+              key="botao_button"
+            />
+          )}
+        </div>
+      </form>
+    );
 }

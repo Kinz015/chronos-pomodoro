@@ -16,7 +16,6 @@
   height: 2rem;
   background-color: var(--primary);
   border-radius: 50%;
-  display: none;
 }
 
 .workTime {
@@ -29,8 +28,4 @@
 
 .longBreakTime {
   background-color: var(--info);
-}
-
-.active {
-  display: block;
 }

@@ -5,8 +5,8 @@ import styles from "./styles.module.css";
 
 export function Cycles() {
   const { state } = useTaskContext();
+
   const cycleStep = Array.from({ length: state.currentCycle });
-  console.log(cycleStep);
 
   const cycleDescriptionMap = {
     workTime: "foco",
@@ -23,9 +23,10 @@ export function Cycles() {
           const nextCycleType = getNextCycleType(nextCycle);
           return (
             <span
+              key={nextCycle}
               className={`${styles.cycleDot} ${styles[nextCycleType]}`}
-              aria-label={`Indicador de ciclo de ciclo de ${cycleDescriptionMap[nextCycleType]}`}
-              title={`Indicador de ciclo de ciclo de ${cycleDescriptionMap[nextCycleType]}`}
+              aria-label={`Indicador de ciclo de ${cycleDescriptionMap[nextCycleType]}`}
+              title={`Indicador de ciclo de ${cycleDescriptionMap[nextCycleType]}`}
             ></span>
           );
         })}
