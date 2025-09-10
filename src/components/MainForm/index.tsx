@@ -9,6 +9,7 @@ import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
+import { Tips } from "../Tips";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -44,58 +45,55 @@ export function MainForm() {
   }
 
   function handleInterruptTask() {
-    dispatch({ type: TaskActionTypes.INTERRUPT_TASK});
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
-  const frase = "Próximo intervalo é de 25min";
+  return (
+    <form onSubmit={handleCreateNewTask} className={styles.form} action="">
+      <div className={styles.formRow}>
+        <DefaltInput
+          type="text"
+          id="input"
+          labelText={"task"}
+          placeholder="Digite algo"
+          ref={taskNameInput}
+          disabled={!!state.activeTask}
+        ></DefaltInput>
+      </div>
 
-  if (frase)
-    return (
-      <form onSubmit={handleCreateNewTask} className={styles.form} action="">
-        <div className={styles.formRow}>
-          <DefaltInput
-            type="text"
-            id="input"
-            labelText={"task"}
-            placeholder="Digite algo"
-            ref={taskNameInput}
-            disabled={!!state.activeTask}
-          ></DefaltInput>
-        </div>
+      <div className="formRow">
+        <Tips/>
+      </div>
 
+      {state.currentCycle > 0 && (
         <div className="formRow">
-          <p>{frase}</p>
+          <Cycles />
         </div>
+      )}
 
-        {state.currentCycle > 0 && (
-          <div className="formRow">
-            <Cycles />
-          </div>
+      <div className="formRow">
+        {!state.activeTask && (
+          <DefaltButton
+            aria-label="Iniciar nova tarefa"
+            title="Iniciar nova tarefa"
+            type="submit"
+            icon={<PlayCircleIcon />}
+            color="green"
+            key="botao_submit"
+          />
         )}
-
-        <div className="formRow">
-          {!state.activeTask && (
-            <DefaltButton
-              aria-label="Iniciar nova tarefa"
-              title="Iniciar nova tarefa"
-              type="submit"
-              icon={<PlayCircleIcon />}
-              color="green"
-              key="botao_submit"
-            />
-          )}
-          {!!state.activeTask && (
-            <DefaltButton
-              aria-label="Interromper tarefa"
-              title="Interromper tarefa"
-              type="button"
-              icon={<StopCircleIcon />}
-              color="red"
-              onClick={handleInterruptTask}
-              key="botao_button"
-            />
-          )}
-        </div>
-      </form>
-    );
+        {!!state.activeTask && (
+          <DefaltButton
+            aria-label="Interromper tarefa"
+            title="Interromper tarefa"
+            type="button"
+            icon={<StopCircleIcon />}
+            color="red"
+            onClick={handleInterruptTask}
+            key="botao_button"
+          />
+        )}
+      </div>
+    </form>
+  );
 }
