@@ -6,16 +6,16 @@ import style from "./styles.module.css";
 export function Menu() {
   return (
     <nav className={style.menu}>
-      <PageButton ariaLabe="Ir para a Home">
+      <PageButton href="/" ariaLabe="Ir para a Home">
         <House />
       </PageButton>
-      <PageButton ariaLabe="Ver histórico">
+      <PageButton href="/about-pomodoro" ariaLabe="Ver histórico">
         <History />
       </PageButton>
-      <PageButton ariaLabe="Ir para as configurações">
+      <PageButton href="#" ariaLabe="Ir para as configurações">
         <Settings />
       </PageButton>
-      <PageButton ariaLabe="Mudar Tema" isTheme={true}>
+      <PageButton href="#" ariaLabe="Mudar Tema" isTheme={true}>
         <SunIcon />
       </PageButton>
     </nav>
