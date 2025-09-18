@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { MoonIcon, SunIcon } from "lucide-react";
-import { Link } from "react-router";
+import { RouterLink } from "../RouterLink";
 
 type Icons = {
   children: React.ReactNode;
@@ -34,13 +34,13 @@ export function PageButton({ href, isTheme, ariaLabe, children }: Icons ) {
   }, [theme]);
 
   return (
-    <Link
+    <RouterLink
       className={styles.menuLink}
-      to={href}
+      href={href}
       aria-label={ariaLabe}
       onClick={isTheme ? mudarThema : undefined}
     >
       { isTheme ? nextThemeIcon[theme] : children }
-    </Link>
+    </RouterLink>
   );
 }

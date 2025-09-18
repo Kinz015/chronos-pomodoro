@@ -15,6 +15,7 @@ import { showMessage } from "../../adapter/showMessage";
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || "";
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle);
@@ -22,14 +23,14 @@ export function MainForm() {
 
   function handleCreateNewTask(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
-    showMessage.dismiss()
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      showMessage.warn("Digite o nome da tarefa")
+      showMessage.warn("Digite o nome da tarefa");
       return;
     }
 
@@ -44,12 +45,12 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
-    showMessage.success("Tarefa iniciada")
+    showMessage.success("Tarefa iniciada");
   }
 
   function handleInterruptTask() {
-    showMessage.dismiss()
-    showMessage.error("Tarefa interrompida")
+    showMessage.dismiss();
+    showMessage.error("Tarefa interrompida");
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
@@ -63,11 +64,12 @@ export function MainForm() {
           placeholder="Digite algo"
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={lastTaskName}
         ></DefaltInput>
       </div>
 
       <div className="formRow">
-        <Tips/>
+        <Tips />
       </div>
 
       {state.currentCycle > 0 && (

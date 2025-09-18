@@ -9,10 +9,10 @@ export function Menu() {
       <PageButton href="/" ariaLabe="Ir para a Home">
         <House />
       </PageButton>
-      <PageButton href="/about-pomodoro" ariaLabe="Ver histórico">
+      <PageButton href="/history" ariaLabe="Ver histórico">
         <History />
       </PageButton>
-      <PageButton href="#" ariaLabe="Ir para as configurações">
+      <PageButton href="/settings" ariaLabe="Ir para as configurações">
         <Settings />
       </PageButton>
       <PageButton href="#" ariaLabe="Mudar Tema" isTheme={true}>
