@@ -3,6 +3,7 @@ import { Home } from "../Pages/Home";
 import { AboutPomodoro } from "../Pages/AboutPomodo";
 import { NotFound } from "../Pages/NotFound";
 import { useEffect } from "react";
+import { History } from "../Pages/History";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -20,6 +21,7 @@ export function MainRouter() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about-pomodoro" element={<AboutPomodoro />} />
+        <Route path="/history" element={<History />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ScrollToTop />
