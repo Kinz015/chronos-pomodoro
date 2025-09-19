@@ -6,9 +6,27 @@ import { MainTemplate } from "../../templates/mainTemplate";
 
 import styles from "./styles.module.css";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
+import { formatDate } from "../../utils/formatDate";
+import { getTaskStatus } from "../../utils/getTaskStatus";
+import { sortTasks, type SortTasksOptions } from "../../utils/sortTasks";
+import { useState } from "react";
 
 export function History() {
-  const {state} = useTaskContext()
+  const { state } = useTaskContext();
+  const [sortTaskOptions, setSortTaskOptions] = useState<SortTasksOptions>(
+    () => {
+      return {
+        tasks: sortTasks({ tasks: state.tasks }),
+        field: "startDate",
+        direction: "desc",
+      };
+    }
+  );
+
+  function handleSortTasks({ field }: Pick<SortTasksOptions, "field">) {
+
+  }
+ 
 
   return (
     <MainTemplate>
@@ -38,14 +56,20 @@ export function History() {
               </tr>
             </thead>
             <tbody>
-              {state.tasks.map((task) => {
+              {sortTaskOptions.tasks.map((task) => {
+                const taskTypeDictionary = {
+                  workTime: "Foco",
+                  shortBreakTime: "Descanso curto",
+                  longBreakTime: "Descanso longo",
+                };
+
                 return (
                   <tr key={task.id}>
                     <td>{task.name}</td>
                     <td>{task.duration}</td>
-                    <td>{new Date(task.startDate).toISOString()}</td>
-                    <td>{task.interruptDate}</td>
-                    <td>{task.type}</td>
+                    <td>{formatDate(task.startDate)}</td>
+                    <td>{getTaskStatus(task, state.activeTask)}</td>
+                    <td>{taskTypeDictionary[task.type]}</td>
                   </tr>
                 );
               })}
