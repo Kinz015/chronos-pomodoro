@@ -1,6 +1,6 @@
 import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { Cycles } from "../Cycles";
-import { DefaltButton } from "../DefaultButton";
+import { DefaultButton } from "../DefaultButton";
 import { DefaltInput } from "../DefaultInput";
 import styles from "./styles.module.css";
 import { useRef } from "react";
@@ -80,7 +80,7 @@ export function MainForm() {
 
       <div className="formRow">
         {!state.activeTask && (
-          <DefaltButton
+          <DefaultButton
             aria-label="Iniciar nova tarefa"
             title="Iniciar nova tarefa"
             type="submit"
@@ -90,7 +90,7 @@ export function MainForm() {
           />
         )}
         {!!state.activeTask && (
-          <DefaltButton
+          <DefaultButton
             aria-label="Interromper tarefa"
             title="Interromper tarefa"
             type="button"
