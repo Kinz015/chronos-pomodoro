@@ -18,7 +18,7 @@ export function MessageContainer({ children }: MessagesContainerProps) {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="D:\Sites\chronos-pomodoro\src\styles\theme.css"
+        theme="light"
         transition={Bounce}
       />
     </>

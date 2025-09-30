@@ -1,6 +1,6 @@
 import { TrashIcon } from "lucide-react";
 import { Container } from "../../components/Container";
-import { DefaltButton } from "../../components/DefaultButton";
+import { DefaultButton } from "../../components/DefaultButton";
 import { Heading } from "../../components/Heading";
 import { MainTemplate } from "../../templates/mainTemplate";
 
@@ -10,10 +10,10 @@ import { formatDate } from "../../utils/formatDate";
 import { getTaskStatus } from "../../utils/getTaskStatus";
 import { sortTasks, type SortTasksOptions } from "../../utils/sortTasks";
 import { useEffect, useState } from "react";
-import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
+import { showMessage } from "../../adapter/showMessage";
 
 export function History() {
-  const { state, dispatch } = useTaskContext();
+  const { state } = useTaskContext();
   const hasTasks = state.tasks.length > 0;
 
   const [sortTaskOptions, setSortTaskOptions] = useState<SortTasksOptions>(
@@ -52,9 +52,12 @@ export function History() {
   }
 
   function handleResetHistory() {
-    if (!confirm("Tem certeza que desejá apagar o histórico?")) return;
+    showMessage.confirm("Tem certeza?", confirmation => {
+      console.log(confirmation)
+    })
+    // if (!confirm("Tem certeza que desejá apagar o histórico?")) return;
 
-    dispatch({ type: TaskActionTypes.RESET_STATE });
+    // dispatch({ type: TaskActionTypes.RESET_STATE });
   }
 
   return (
@@ -64,7 +67,7 @@ export function History() {
           <span>History</span>
           {hasTasks && (
             <span className={styles.buttonContainer}>
-              <DefaltButton
+              <DefaultButton
                 onClick={handleResetHistory}
                 icon={<TrashIcon />}
                 color="red"
