@@ -16,4 +16,4 @@ export function Settings() {
       </Container>
     </MainTemplate>
   );
-}.
+}
