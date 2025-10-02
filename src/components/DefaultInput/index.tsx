@@ -6,7 +6,7 @@ type InputContent = {
   id: string;
 } & React.ComponentProps<"input">;
 
-export function DefaltInput({
+export function DefaultInput({
   labelText,
   type,
   id,

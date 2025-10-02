@@ -1,7 +1,6 @@
 import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { Cycles } from "../Cycles";
 import { DefaultButton } from "../DefaultButton";
-import { DefaltInput } from "../DefaultInput";
 import styles from "./styles.module.css";
 import { useRef } from "react";
 import type { TaskModel } from "../../models/TaskModel";
@@ -11,6 +10,7 @@ import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 import { Tips } from "../Tips";
 import { showMessage } from "../../adapter/showMessage";
+import { DefaultInput } from "../DefaultInput";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -57,7 +57,7 @@ export function MainForm() {
   return (
     <form onSubmit={handleCreateNewTask} className={styles.form} action="">
       <div className={styles.formRow}>
-        <DefaltInput
+        <DefaultInput
           type="text"
           id="input"
           labelText={"task"}
@@ -65,7 +65,7 @@ export function MainForm() {
           ref={taskNameInput}
           disabled={!!state.activeTask}
           defaultValue={lastTaskName}
-        ></DefaltInput>
+        ></DefaultInput>
       </div>
 
       <div className="formRow">
