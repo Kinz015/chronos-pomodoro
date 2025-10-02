@@ -9,7 +9,7 @@ export function Settings() {
         <Heading>Configurações</Heading>
       </Container>
       <Container>
-        <p>
+        <p style={{ textAlign: "center" }}>
           Modifique as configurações para tempo de foco, descanso curdo e
           descanso longo.
         </p>
