@@ -4,7 +4,7 @@ import { DefaultInput } from "../../components/DefaultInput";
 import { Heading } from "../../components/Heading";
 import { MainTemplate } from "../../templates/mainTemplate";
 import { DefaultButton } from "../../components/DefaultButton";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { showMessage } from "../../adapter/showMessage";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
@@ -33,11 +33,11 @@ export function Settings() {
     }
 
     if (shortBreakTime < 1 || shortBreakTime > 30) {
-      formErrors.push("Digite valores entre 1 e 99 para descanso curto");
+      formErrors.push("Digite valores entre 1 e 30 para descanso curto");
     }
 
     if (longBreakTime < 1 || longBreakTime > 60) {
-      formErrors.push("Digite valores entre 1 e 99 para descanso longo");
+      formErrors.push("Digite valores entre 1 e 60 para descanso longo");
     }
 
     if (formErrors.length > 0) {
@@ -54,9 +54,13 @@ export function Settings() {
         shortBreakTime,
         longBreakTime,
       },
-    }); 
-    showMessage.success("Configurações salvas")
+    });
+    showMessage.success("Configurações salvas");
   }
+
+  useEffect(() => {
+    document.title = "Configurações - Chronos Pomodoro";
+  });
 
   return (
     <MainTemplate>

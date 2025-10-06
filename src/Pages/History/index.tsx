@@ -73,6 +73,10 @@ export function History() {
     dispatch({ type: TaskActionTypes.RESET_STATE });
   }
 
+  useEffect(() => {
+    document.title = "Histórico - Chronos Pomodoro";
+  });
+
   return (
     <MainTemplate>
       <Container>
